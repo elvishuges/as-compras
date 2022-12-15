@@ -11,6 +11,8 @@ import {
 } from "./style";
 
 import { IProductList } from "./../../interfaces/user";
+import { ProductContext } from "../../context/app.context";
+import { IProductContext } from "../../interfaces/products.context";
 
 interface Props {
   productList: IProductList;
@@ -28,6 +30,7 @@ const Item = ({ data }: { data: IProductList }) => (
 );
 
 export const ProductList: React.FC<Props> = ({ productList }) => {
+  const { saveProduct } = React.useContext(ProductContext) as IProductContext;
   const renderItem: ListRenderItem<IProductList> = ({ item }) => (
     <Item data={item} />
   );

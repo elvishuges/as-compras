@@ -3,6 +3,8 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { ListRenderItem, Text } from "react-native";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import { ProductContext } from "../../context/app.context";
+import { IProductContext } from "../../interfaces/products.context";
 
 import { Container } from "./styles";
 
@@ -12,6 +14,10 @@ type FormData = {
 };
 
 export const ProductForm: React.FC = () => {
+  const { saveProduct, products } = React.useContext(
+    ProductContext
+  ) as IProductContext;
+
   const {
     control,
     formState: { errors },
@@ -20,7 +26,7 @@ export const ProductForm: React.FC = () => {
     mode: "onChange",
   });
 
-  const submit = (data: any) => console.log(data);
+  const submit = (data: any) => console.log(products);
 
   return (
     <Container>

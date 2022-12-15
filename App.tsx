@@ -9,6 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { ThemeProvider } from "styled-components/native";
 import THEME from "./src/theme";
 import { AppRoutes } from "./src/routes/app.routes";
+import { ProductProvider } from "./src/context/app.context";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -28,8 +29,10 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={THEME}>
-      <AppRoutes />
-    </ThemeProvider>
+    <ProductProvider>
+      <ThemeProvider theme={THEME}>
+        <AppRoutes />
+      </ThemeProvider>
+    </ProductProvider>
   );
 }

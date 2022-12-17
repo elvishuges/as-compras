@@ -13,10 +13,10 @@ export const ProductProvider: React.FC<Props> = ({ children }) => {
 
   const saveProduct = (product: IProductList) => {
     const newTodo: IProductList = {
-      id: Math.random() + "", // not really unique - but fine for this example
-      name: "todo.title",
-      brand: "todo.description",
-      price: 123,
+      id: product.id,
+      name: product.name,
+      brand: product.brand,
+      price: product.price,
     };
     setProducts([...products, newTodo]);
   };

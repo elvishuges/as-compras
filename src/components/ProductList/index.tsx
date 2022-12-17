@@ -21,10 +21,7 @@ interface Props {
 const Item = ({ data }: { data: IProductList }) => (
   <ItemContainer>
     <ItemImage source={require("./../../assets/images.png")}></ItemImage>
-    <ItemNameBrand>
-      {data.name}
-      {data.brand}
-    </ItemNameBrand>
+    <ItemNameBrand>{data.name}</ItemNameBrand>
     <ItemPrince>{data.price} R$</ItemPrince>
   </ItemContainer>
 );

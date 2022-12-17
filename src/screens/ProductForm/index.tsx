@@ -6,10 +6,15 @@ import Input from "../../components/Input";
 import { ProductContext } from "../../context/app.context";
 import { IProductContext } from "../../interfaces/products.context";
 
+import NumberFormat from "react-number-format";
+import { NumericFormat } from "react-number-format";
+
 import { Container } from "./styles";
+import { TextInput } from "react-native";
 
 type FormData = {
   name: string;
+  brand: string;
   price: string;
 };
 
@@ -26,7 +31,15 @@ export const ProductForm: React.FC = () => {
     mode: "onChange",
   });
 
-  const submit = (data: any) => console.log(products);
+  const submit = (data: FormData) => {
+    const product = {
+      id: "",
+      name: data.name,
+      brand: data.brand,
+      price: 123,
+    };
+    saveProduct(product);
+  };
 
   return (
     <Container>
@@ -36,7 +49,7 @@ export const ProductForm: React.FC = () => {
         name="name"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeholder="Product Name"
+            placeholder="Nome"
             value={value}
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
@@ -45,18 +58,32 @@ export const ProductForm: React.FC = () => {
       />
       <Controller
         control={control}
-        defaultValue="0"
-        name="price"
+        defaultValue=""
+        name="brand"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            keyboardType="number-pad"
-            placeholder="Product Name"
+            placeholder="Marca"
             value={value}
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
           />
         )}
       />
+      <Controller
+        control={control}
+        defaultValue=""
+        name="price"
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input
+            keyboardType="number-pad"
+            placeholder="Preço"
+            value={value}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+          />
+        )}
+      />
+
       <Button onPress={handleSubmit(submit)} color="#372b50">
         Cadastrar
       </Button>

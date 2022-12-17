@@ -1,6 +1,6 @@
 import { FlatList } from "react-native";
 import styled from "styled-components/native";
-import { IUser } from "./../../interfaces/user";
+import { IProductList } from "./../../interfaces/user";
 
 export const Container = styled.View`
   flex: 1;
@@ -16,7 +16,7 @@ export const ItemContainer = styled.View`
   padding: 10px;
   margin: 5px;
 `;
-export const List = styled(FlatList as new () => FlatList<IUser>)`
+export const List = styled(FlatList as new () => FlatList<IProductList>)`
   margin-bottom: 5px;
 `;
 

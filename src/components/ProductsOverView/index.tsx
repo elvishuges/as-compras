@@ -10,13 +10,18 @@ import {
   UserImage,
 } from "./style";
 
-export const ProductsOverViewCard = () => {
+interface ProductsOverViewCardPRops {
+  productsTotalPrice: string;
+}
+export const ProductsOverViewCard: React.FC<ProductsOverViewCardPRops> = ({
+  productsTotalPrice,
+}) => {
   return (
     <Container>
       <ItemContainer>
         <ItemRow>
           <ProductInfos>
-            <Title>100R$</Title>
+            <Title>{productsTotalPrice || 0} R$</Title>
             <Subtitle>Valor total dos produtos</Subtitle>
           </ProductInfos>
         </ItemRow>

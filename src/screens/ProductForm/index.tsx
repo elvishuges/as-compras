@@ -6,11 +6,9 @@ import Input from "../../components/Input";
 import { ProductContext } from "../../context/app.context";
 import { IProductContext } from "../../interfaces/products.context";
 
-import NumberFormat from "react-number-format";
-import { NumericFormat } from "react-number-format";
+import uuid from "react-native-uuid";
 
 import { Container } from "./styles";
-import { TextInput } from "react-native";
 
 type FormData = {
   name: string;
@@ -26,26 +24,30 @@ export const ProductForm: React.FC = () => {
   const {
     control,
     formState: { errors },
+    reset,
     handleSubmit,
+    register,
   } = useForm<FormData>({
     mode: "onChange",
   });
 
-  const submit = (data: FormData) => {
+  const submit = (data: FormData, e: any) => {
+    console.log("data", data, "oi", e);
+
     const product = {
-      id: "",
+      id: `${uuid.v4()}`,
       name: data.name,
       brand: data.brand,
-      price: 123,
+      price: +data.price,
     };
     saveProduct(product);
+    reset();
   };
 
   return (
     <Container>
       <Controller
         control={control}
-        defaultValue=""
         name="name"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
@@ -58,7 +60,6 @@ export const ProductForm: React.FC = () => {
       />
       <Controller
         control={control}
-        defaultValue=""
         name="brand"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
@@ -71,11 +72,10 @@ export const ProductForm: React.FC = () => {
       />
       <Controller
         control={control}
-        defaultValue=""
         name="price"
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            keyboardType="number-pad"
+            keyboardType="numeric"
             placeholder="Preço"
             value={value}
             onBlur={onBlur}

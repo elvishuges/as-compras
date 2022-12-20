@@ -30,5 +30,5 @@ export const Touchable = styled.TouchableOpacity<TouchableType>`
 
 export const Text = styled.Text<TextType>`
   color: ${(props) => (props.isDisabled ? "#CCC" : "#FFF")};
-  font-size: 12px;
+  font-size: 16px;
 `;

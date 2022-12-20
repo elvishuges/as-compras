@@ -1,6 +1,6 @@
 import { IProductList } from "./user";
 
 export type IProductContext = {
-  products: IProductList;
+  products: IProductList[];
   saveProduct: (product: IProductList) => void;
 };

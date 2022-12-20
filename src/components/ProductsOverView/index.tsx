@@ -11,7 +11,7 @@ import {
 } from "./style";
 
 interface ProductsOverViewCardPRops {
-  productsTotalPrice: string;
+  productsTotalPrice: number;
 }
 export const ProductsOverViewCard: React.FC<ProductsOverViewCardPRops> = ({
   productsTotalPrice,

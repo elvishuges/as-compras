@@ -10,10 +10,13 @@ import { Container } from "./styles";
 
 export const Home = () => {
   const { products } = React.useContext(ProductContext) as IProductContext;
+  const total = products.reduce((acc, productItem) => {
+    return acc + productItem.price;
+  }, 0);
 
   return (
     <Container>
-      <ProductsOverViewCard productsTotalPrice={"2"} />
+      <ProductsOverViewCard productsTotalPrice={total} />
       <ProductList productList={products} />
     </Container>
   );

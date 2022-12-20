@@ -8,7 +8,9 @@ const Input: React.ElementType<TextInputProps> = ({
   ...props
 }: TextInputProps) => {
   const [isFocused, setFocus] = useState(false);
-  const isActive: boolean = value != "";
+  const isActive: boolean = value?.length ? true : false;
+  console.log("value", value, isActive);
+
   return (
     <Container>
       <Label isActive={isFocused || isActive}>{placeholder}</Label>
@@ -21,6 +23,7 @@ const Input: React.ElementType<TextInputProps> = ({
         onBlur={() => {
           setFocus(false);
         }}
+        value={value}
       />
     </Container>
   );

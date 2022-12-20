@@ -16,7 +16,7 @@ export const ItemContainer = styled.View`
   padding: 10px;
   margin: 5px;
 `;
-export const List = styled(FlatList as new () => FlatList<IProductList>)`
+export const List = styled(FlatList as new () => FlatList<IProductList[]>)`
   margin-bottom: 5px;
 `;
 

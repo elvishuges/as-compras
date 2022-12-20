@@ -48,11 +48,6 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
 
   return (
     <Container>
-      {/* <List
-        data={productList}
-        renderItem={renderItem}
-        keyExtractor={(item: IProductList) => item.id}
-      /> */}
       <SwipeListView
         useFlatList={true}
         data={productList}

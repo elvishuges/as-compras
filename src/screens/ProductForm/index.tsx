@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { ListRenderItem, Text } from "react-native";
+import { ListRenderItem, Modal } from "react-native";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { ProductContext } from "../../context/app.context";

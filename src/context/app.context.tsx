@@ -21,8 +21,15 @@ export const ProductProvider: React.FC<Props> = ({ children }) => {
     setProducts([...products, newTodo]);
   };
 
+  const deleteProduct = (product: IProductList) => {
+    const newData = [...products];
+    const prevIndex = products.findIndex((item) => item.id === product.id);
+    newData.splice(prevIndex, 1);
+    setProducts(newData);
+  };
+
   return (
-    <ProductContext.Provider value={{ products, saveProduct }}>
+    <ProductContext.Provider value={{ products, saveProduct, deleteProduct }}>
       {children}
     </ProductContext.Provider>
   );

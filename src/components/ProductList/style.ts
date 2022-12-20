@@ -16,6 +16,22 @@ export const ItemContainer = styled.View`
   padding: 10px;
   margin: 5px;
 `;
+
+export const HidenItemContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eeeeee;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 5px;
+`;
+export const TouchableHidenItem = styled.TouchableOpacity`
+  flex-direction: row;
+  padding: 24px;
+  align-items: center;
+`;
+
 export const List = styled(FlatList as new () => FlatList<IProductList[]>)`
   margin-bottom: 5px;
 `;
@@ -35,4 +51,14 @@ export const ItemImage = styled.Image`
   border-radius: 5px;
   width: 64px;
   height: 64px;
+`;
+
+export const Category = styled.TouchableOpacity`
+  flex-direction: row;
+  padding: 24px;
+  align-items: center;
+`;
+
+export const BackTextWhite = styled.Text`
+  color: "#fff";
 `;

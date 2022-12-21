@@ -7,7 +7,7 @@ import {
   ItemNameBrand,
   ItemPrince,
   ItemImage,
-  BackTextWhite,
+  HiddenTextItem,
   HidenItemContainer,
   TouchableHidenItem,
 } from "./style";
@@ -30,21 +30,39 @@ const Item = ({ data }: { data: any }) => (
 );
 
 export const ProductList: React.FC<Props> = ({ productList }) => {
-  const { saveProduct, deleteProduct } = React.useContext(
-    ProductContext
-  ) as IProductContext;
+  const { deleteProduct } = React.useContext(ProductContext) as IProductContext;
 
   const deleteRow = (rowMap: any, rowKey: any) => {
     closeRow(rowMap, rowKey);
     const prevIndex = productList.find((item) => item.id === rowKey);
     prevIndex ? deleteProduct(prevIndex) : "";
   };
-
   const closeRow = (rowMap: any, rowKey: any) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
     }
   };
+
+  const renderHiddenItem = (rowData: any, rowMap: any) => (
+    <HidenItemContainer>
+      <TouchableHidenItem
+        backgroundColor="red"
+        onPress={() => deleteRow(rowMap, rowData.item.id)}
+      >
+        <HiddenTextItem backgroundColor="red" paddingLeft={2}>
+          Deletar
+        </HiddenTextItem>
+      </TouchableHidenItem>
+      <TouchableHidenItem
+        onPress={() => closeRow(rowMap, rowData.item.key)}
+        backgroundColor="grey"
+      >
+        <HiddenTextItem backgroundColor="red" paddingLeft={2}>
+          Editar
+        </HiddenTextItem>
+      </TouchableHidenItem>
+    </HidenItemContainer>
+  );
 
   return (
     <Container>
@@ -52,23 +70,12 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
         useFlatList={true}
         data={productList}
         renderItem={(rowData, rowMap) => <Item data={rowData.item} />}
-        renderHiddenItem={(rowData, rowMap) => (
-          <HidenItemContainer>
-            <TouchableHidenItem
-              onPress={() => deleteRow(rowMap, rowData.item.id)}
-            >
-              <BackTextWhite>Deletar</BackTextWhite>
-            </TouchableHidenItem>
-            <TouchableHidenItem onPress={() => rowMap[""].closeRow()}>
-              <BackTextWhite>Editar</BackTextWhite>
-            </TouchableHidenItem>
-          </HidenItemContainer>
-        )}
-        leftOpenValue={75}
-        rightOpenValue={-150}
+        renderHiddenItem={renderHiddenItem}
+        leftOpenValue={105}
+        rightOpenValue={-105}
         onRowOpen={(rowKey, rowMap) => {
           setTimeout(() => {
-            rowMap[rowKey].closeRow();
+            rowMap[rowKey] && rowMap[rowKey].closeRow();
           }, 2000);
         }}
       />

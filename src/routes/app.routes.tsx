@@ -14,17 +14,12 @@ function handleIconTabBar(
   size: number,
   route: any
 ) {
-  let iconName;
+  let iconName = "";
 
   if (route.name === "Produtos") {
-    iconName = focused
-      ? "ios-information-circle"
-      : "ios-information-circle-outline";
-  }
-  if (route.name === "Cadastrar") {
+    iconName = focused ? "list" : "list-outline";
+  } else if (route.name === "Cadastrar") {
     iconName = focused ? "add" : "add-outline";
-  } else if (route.name === "Notas") {
-    iconName = focused ? "text" : "text-outline";
   }
   return <Ionicons name={iconName} size={size} color={color} />;
 }
@@ -43,7 +38,6 @@ export function AppRoutes() {
       >
         <Screen name="Cadastrar" component={ProductForm} />
         <Screen name="Produtos" component={Home} />
-        <Screen name="Notas" component={MyNotes} />
       </Navigator>
     </NavigationContainer>
   );

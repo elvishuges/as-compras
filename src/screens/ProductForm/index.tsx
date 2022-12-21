@@ -32,8 +32,6 @@ export const ProductForm: React.FC = () => {
   });
 
   const submit = (data: FormData, e: any) => {
-    console.log("data", data, "oi", e);
-
     const product = {
       id: `${uuid.v4()}`,
       name: data.name,

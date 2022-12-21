@@ -2,6 +2,13 @@ import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import { IProductList } from "./../../interfaces/user";
 
+interface HiddenTextItemProps {
+  paddingLeft: number;
+  backgroundColor: string;
+}
+interface TouchableHidenItemProps {
+  backgroundColor: string;
+}
 export const Container = styled.View`
   flex: 1;
   padding: 5px;
@@ -21,15 +28,16 @@ export const HidenItemContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #eeeeee;
   border-radius: 10px;
   padding: 10px;
   margin: 5px;
 `;
-export const TouchableHidenItem = styled.TouchableOpacity`
+export const TouchableHidenItem = styled.TouchableOpacity<TouchableHidenItemProps>`
   flex-direction: row;
-  padding: 24px;
+  padding: 20px;
   align-items: center;
+  border-radius: 5px;
+  background-color: ${({ backgroundColor }) => backgroundColor}; ;
 `;
 
 export const List = styled(FlatList as new () => FlatList<IProductList[]>)`
@@ -37,8 +45,7 @@ export const List = styled(FlatList as new () => FlatList<IProductList[]>)`
 `;
 
 export const ItemNameBrand = styled.Text`
-  align-items: flex-start;
-  font-size: 16px;
+  font-size: 18px;
   color: #377a59;
   width: auto;
 `;
@@ -59,6 +66,7 @@ export const Category = styled.TouchableOpacity`
   align-items: center;
 `;
 
-export const BackTextWhite = styled.Text`
+export const HiddenTextItem = styled.Text<HiddenTextItemProps>`
   color: "#fff";
+  padding-right: ${({ paddingLeft }) => paddingLeft}px;
 `;

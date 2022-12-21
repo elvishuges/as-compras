@@ -9,7 +9,6 @@ const Input: React.ElementType<TextInputProps> = ({
 }: TextInputProps) => {
   const [isFocused, setFocus] = useState(false);
   const isActive: boolean = value?.length ? true : false;
-  console.log("value", value, isActive);
 
   return (
     <Container>

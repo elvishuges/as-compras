@@ -36,8 +36,8 @@ export function AppRoutes() {
           tabBarInactiveTintColor: "gray",
         })}
       >
-        <Screen name="Cadastrar" component={ProductForm} />
         <Screen name="Produtos" component={Home} />
+        <Screen name="Cadastrar" component={ProductForm} />
       </Navigator>
     </NavigationContainer>
   );

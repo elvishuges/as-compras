@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ListRenderItem, Text, TouchableOpacity, View } from "react-native";
 
 import {
@@ -13,9 +13,10 @@ import {
 } from "./style";
 
 import { IProductList } from "./../../interfaces/user";
-import { SwipeListView } from "react-native-swipe-list-view";
+import { RowMap, SwipeListView } from "react-native-swipe-list-view";
 import { ProductContext } from "../../context/app.context";
 import { IProductContext } from "../../interfaces/products.context";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 interface Props {
   productList: IProductList[];
@@ -30,17 +31,40 @@ const Item = ({ data }: { data: any }) => (
 );
 
 export const ProductList: React.FC<Props> = ({ productList }) => {
+  const navigation = useNavigation();
   const { deleteProduct } = React.useContext(ProductContext) as IProductContext;
 
-  const deleteRow = (rowMap: any, rowKey: any) => {
+  const [editId, setEditId] = useState("");
+
+  useFocusEffect(() => {
+    // reset id
+  });
+
+  const deleteRow = (rowMap: any, rowKey: string) => {
     closeRow(rowMap, rowKey);
     const prevIndex = productList.find((item) => item.id === rowKey);
     prevIndex ? deleteProduct(prevIndex) : "";
+  };
+
+  const handleEditRow = (id: string) => {
+    setEditId(id);
+    navigation.navigate(
+      "Cadastrar" as never,
+      {
+        productId: id,
+      } as never
+    );
   };
   const closeRow = (rowMap: any, rowKey: any) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
     }
+  };
+
+  const onRowOpen = (rowKey: string, rowMap: RowMap<IProductList>) => {
+    setTimeout(() => {
+      rowMap[rowKey] && rowMap[rowKey].closeRow();
+    }, 2000);
   };
 
   const renderHiddenItem = (rowData: any, rowMap: any) => (
@@ -54,7 +78,7 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
         </HiddenTextItem>
       </TouchableHidenItem>
       <TouchableHidenItem
-        onPress={() => closeRow(rowMap, rowData.item.key)}
+        onPress={() => handleEditRow(rowData.item.id)}
         backgroundColor="grey"
       >
         <HiddenTextItem backgroundColor="red" paddingLeft={2}>
@@ -73,11 +97,7 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
         renderHiddenItem={renderHiddenItem}
         leftOpenValue={105}
         rightOpenValue={-105}
-        onRowOpen={(rowKey, rowMap) => {
-          setTimeout(() => {
-            rowMap[rowKey] && rowMap[rowKey].closeRow();
-          }, 2000);
-        }}
+        onRowOpen={onRowOpen}
       />
     </Container>
   );

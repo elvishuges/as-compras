@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { ListRenderItem, Modal } from "react-native";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { ProductContext } from "../../context/app.context";
@@ -16,20 +16,36 @@ type FormData = {
   price: string;
 };
 
-export const ProductForm: React.FC = () => {
+interface Props {
+  route: any;
+}
+
+export const ProductForm: React.FC<Props> = ({ route }) => {
   const { saveProduct, products } = React.useContext(
     ProductContext
   ) as IProductContext;
+  console.log("route", route);
+  const navigation = useNavigation();
 
-  const {
-    control,
-    formState: { errors },
-    reset,
-    handleSubmit,
-    register,
-  } = useForm<FormData>({
+  const [editing, setEditing] = useState(false);
+
+  const { control, reset, handleSubmit, setValue } = useForm<FormData>({
     mode: "onChange",
   });
+  const { params } = route;
+
+  if (params?.productId) {
+    const { productId } = params;
+    const productsCopy = [...products];
+    const editingProduct = productsCopy.find((item) => item.id === productId);
+    if (editingProduct) {
+      console.log("aqui3");
+
+      setValue("name", editingProduct.name);
+      setValue("brand", editingProduct.brand);
+      setValue("price", editingProduct.price + "");
+    }
+  }
 
   const submit = (data: FormData, e: any) => {
     const product = {
@@ -40,6 +56,7 @@ export const ProductForm: React.FC = () => {
     };
     saveProduct(product);
     reset();
+    navigation.navigate("Produtos" as never);
   };
 
   return (

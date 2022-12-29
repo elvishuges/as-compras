@@ -37,7 +37,7 @@ export function AppRoutes() {
         })}
       >
         <Screen name="Produtos" component={Home} />
-        <Screen name="Cadastrar" component={ProductForm} />
+        <Screen name="Cadastrar" component={ProductForm} initialParams={{}} />
       </Navigator>
     </NavigationContainer>
   );

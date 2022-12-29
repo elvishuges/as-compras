@@ -28,8 +28,14 @@ export const ProductProvider: React.FC<Props> = ({ children }) => {
     setProducts(newData);
   };
 
+  const updateProducts = (newProducts: IProductList[]) => {
+    setProducts(newProducts);
+  };
+
   return (
-    <ProductContext.Provider value={{ products, saveProduct, deleteProduct }}>
+    <ProductContext.Provider
+      value={{ products, saveProduct, deleteProduct, updateProducts }}
+    >
       {children}
     </ProductContext.Provider>
   );

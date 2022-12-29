@@ -36,10 +36,6 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
 
   const [editId, setEditId] = useState("");
 
-  useFocusEffect(() => {
-    // reset id
-  });
-
   const deleteRow = (rowMap: any, rowKey: string) => {
     closeRow(rowMap, rowKey);
     const prevIndex = productList.find((item) => item.id === rowKey);

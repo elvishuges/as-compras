@@ -20,27 +20,40 @@ interface Props {
   route: any;
 }
 
+//https://github.com/react-navigation/react-navigation/issues/6674
+
 export const ProductForm: React.FC<Props> = ({ route }) => {
-  const { saveProduct, products } = React.useContext(
+  const [editing, setEditing] = useState(false);
+  const [editingProductId, setDditingProductId] = useState("");
+
+  const { saveProduct, products, updateProducts } = React.useContext(
     ProductContext
   ) as IProductContext;
-  console.log("route", route);
-  const navigation = useNavigation();
 
-  const [editing, setEditing] = useState(false);
+  const navigation = useNavigation();
 
   const { control, reset, handleSubmit, setValue } = useForm<FormData>({
     mode: "onChange",
   });
-  const { params } = route;
 
-  if (params?.productId) {
-    const { productId } = params;
+  useEffect(() => {
+    const { params } = route;
+    if (params && "productId" in params) {
+      const { productId } = params;
+      setEditing(true);
+      setDditingProductId(productId);
+      loadFormByProductID(productId);
+      delete params.productId;
+    } else {
+      setEditing(false);
+      reset();
+    }
+  }, [route]);
+
+  function loadFormByProductID(productId: string) {
     const productsCopy = [...products];
     const editingProduct = productsCopy.find((item) => item.id === productId);
     if (editingProduct) {
-      console.log("aqui3");
-
       setValue("name", editingProduct.name);
       setValue("brand", editingProduct.brand);
       setValue("price", editingProduct.price + "");
@@ -48,14 +61,27 @@ export const ProductForm: React.FC<Props> = ({ route }) => {
   }
 
   const submit = (data: FormData, e: any) => {
+    const id = editing ? editingProductId : `${uuid.v4()}`;
     const product = {
-      id: `${uuid.v4()}`,
+      id: id,
       name: data.name,
       brand: data.brand,
       price: +data.price,
     };
-    saveProduct(product);
+    if (!editing) {
+      saveProduct(product);
+    } else {
+      const copyProducts = [...products];
+      const productIndex = copyProducts.findIndex(
+        (product) => product.id === id
+      );
+
+      copyProducts[productIndex] = product;
+      updateProducts(copyProducts);
+    }
+
     reset();
+    setEditing(false);
     navigation.navigate("Produtos" as never);
   };
 

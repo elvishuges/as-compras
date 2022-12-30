@@ -14,6 +14,16 @@ export const Container = styled.View`
   padding: 5px;
 `;
 
+export const Title = styled.Text`
+  font-weight: 800;
+  font-size: 16px;
+`;
+
+export const SubTitle = styled.Text`
+  font-weight: 800;
+  font-size: 12px;
+`;
+
 export const ItemContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -44,10 +54,10 @@ export const List = styled(FlatList as new () => FlatList<IProductList[]>)`
   margin-bottom: 5px;
 `;
 
-export const ItemNameBrand = styled.Text`
-  font-size: 18px;
-  color: #377a59;
+export const ItemInfos = styled.View`
+  flex-direction: column;
   width: auto;
+  align-items: center;
 `;
 export const ItemPrince = styled.Text`
   color: #ad1300;

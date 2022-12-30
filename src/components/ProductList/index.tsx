@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ListRenderItem, Text, TouchableOpacity, View } from "react-native";
 
 import {
   Container,
   ItemContainer,
-  ItemNameBrand,
   ItemPrince,
   ItemImage,
   HiddenTextItem,
   HidenItemContainer,
   TouchableHidenItem,
+  ItemInfos,
+  Title,
+  SubTitle,
 } from "./style";
 
 import { IProductList } from "./../../interfaces/user";
@@ -22,10 +24,13 @@ interface Props {
   productList: IProductList[];
 }
 
-const Item = ({ data }: { data: any }) => (
+const Item = ({ data }: { data: IProductList }) => (
   <ItemContainer>
     <ItemImage source={require("./../../assets/images.png")}></ItemImage>
-    <ItemNameBrand>{data.name}</ItemNameBrand>
+    <ItemInfos>
+      <Title>{data.name}</Title>
+      <SubTitle>{data.brand}</SubTitle>
+    </ItemInfos>
     <ItemPrince>{data.price} R$</ItemPrince>
   </ItemContainer>
 );
@@ -34,7 +39,9 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
   const navigation = useNavigation();
   const { deleteProduct } = React.useContext(ProductContext) as IProductContext;
 
-  const [editId, setEditId] = useState("");
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  console.log(data);
 
   const deleteRow = (rowMap: any, rowKey: string) => {
     closeRow(rowMap, rowKey);
@@ -42,8 +49,20 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
     prevIndex ? deleteProduct(prevIndex) : "";
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      fetch(
+        "https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json"
+      )
+        .then((response) => response.json())
+        .then((json) => setData(json))
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+      // Do your work
+    }, [])
+  );
+
   const handleEditRow = (id: string) => {
-    setEditId(id);
     navigation.navigate(
       "Cadastrar" as never,
       {

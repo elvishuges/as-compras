@@ -6,6 +6,7 @@ export const Container = styled.View`
   border-radius: 15px;
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 5px;
 `;
 
 export const ItemContainer = styled.View`

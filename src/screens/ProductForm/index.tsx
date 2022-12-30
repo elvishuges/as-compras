@@ -23,8 +23,8 @@ interface Props {
 //https://github.com/react-navigation/react-navigation/issues/6674
 
 export const ProductForm: React.FC<Props> = ({ route }) => {
-  const [editing, setEditing] = useState(false);
-  const [editingProductId, setDditingProductId] = useState("");
+  const [editingMode, setEditingMode] = useState(false);
+  const [editingProductId, setEditingProductID] = useState("");
 
   const { saveProduct, products, updateProducts } = React.useContext(
     ProductContext
@@ -40,17 +40,17 @@ export const ProductForm: React.FC<Props> = ({ route }) => {
     const { params } = route;
     if (params && "productId" in params) {
       const { productId } = params;
-      setEditing(true);
-      setDditingProductId(productId);
-      loadFormByProductID(productId);
+      setEditingMode(true);
+      setEditingProductID(productId);
+      updateFormByProductId(productId);
       delete params.productId;
     } else {
-      setEditing(false);
+      setEditingMode(false);
       reset();
     }
   }, [route]);
 
-  function loadFormByProductID(productId: string) {
+  function updateFormByProductId(productId: string) {
     const productsCopy = [...products];
     const editingProduct = productsCopy.find((item) => item.id === productId);
     if (editingProduct) {
@@ -61,14 +61,14 @@ export const ProductForm: React.FC<Props> = ({ route }) => {
   }
 
   const submit = (data: FormData, e: any) => {
-    const id = editing ? editingProductId : `${uuid.v4()}`;
+    const id = editingMode ? editingProductId : `${uuid.v4()}`;
     const product = {
       id: id,
       name: data.name,
       brand: data.brand,
       price: +data.price,
     };
-    if (!editing) {
+    if (!editingMode) {
       saveProduct(product);
     } else {
       const copyProducts = [...products];
@@ -81,7 +81,7 @@ export const ProductForm: React.FC<Props> = ({ route }) => {
     }
 
     reset();
-    setEditing(false);
+    setEditingMode(false);
     navigation.navigate("Produtos" as never);
   };
 
@@ -126,7 +126,7 @@ export const ProductForm: React.FC<Props> = ({ route }) => {
       />
 
       <Button onPress={handleSubmit(submit)} color="#372b50">
-        Cadastrar
+        {editingMode ? "Atualizar" : "Cadastrar"}
       </Button>
     </Container>
   );

@@ -4,4 +4,5 @@ export const Container = styled.View`
   flex: 1;
   background-color: #f2f2f2;
   padding: 5px;
+  margin-bottom: 36px;
 `;

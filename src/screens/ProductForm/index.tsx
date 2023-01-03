@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { ProductContext } from "../../context/app.context";
 import { IProductContext } from "../../interfaces/products.context";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import uuid from "react-native-uuid";
 
@@ -86,48 +87,50 @@ export const ProductForm: React.FC<Props> = ({ route }) => {
   };
 
   return (
-    <Container>
-      <Controller
-        control={control}
-        name="name"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            placeholder="Nome"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={(value) => onChange(value)}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="brand"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            placeholder="Marca"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={(value) => onChange(value)}
-          />
-        )}
-      />
-      <Controller
-        control={control}
-        name="price"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <Input
-            keyboardType="numeric"
-            placeholder="Preço"
-            value={value}
-            onBlur={onBlur}
-            onChangeText={(value) => onChange(value)}
-          />
-        )}
-      />
+    <KeyboardAwareScrollView>
+      <Container>
+        <Controller
+          control={control}
+          name="name"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Input
+              placeholder="Nome"
+              value={value}
+              onBlur={onBlur}
+              onChangeText={(value) => onChange(value)}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="brand"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Input
+              placeholder="Marca"
+              value={value}
+              onBlur={onBlur}
+              onChangeText={(value) => onChange(value)}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="price"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <Input
+              keyboardType="numeric"
+              placeholder="Preço"
+              value={value}
+              onBlur={onBlur}
+              onChangeText={(value) => onChange(value)}
+            />
+          )}
+        />
 
-      <Button onPress={handleSubmit(submit)} color="#372b50">
-        {editingMode ? "Atualizar" : "Cadastrar"}
-      </Button>
-    </Container>
+        <Button onPress={handleSubmit(submit)} color="#372b50">
+          {editingMode ? "Atualizar" : "Cadastrar"}
+        </Button>
+      </Container>
+    </KeyboardAwareScrollView>
   );
 };

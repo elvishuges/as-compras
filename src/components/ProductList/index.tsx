@@ -41,7 +41,6 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  console.log(data);
 
   const deleteRow = (rowMap: any, rowKey: string) => {
     closeRow(rowMap, rowKey);
@@ -49,18 +48,18 @@ export const ProductList: React.FC<Props> = ({ productList }) => {
     prevIndex ? deleteProduct(prevIndex) : "";
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      fetch(
-        "https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json"
-      )
-        .then((response) => response.json())
-        .then((json) => setData(json))
-        .catch((error) => console.error(error))
-        .finally(() => setLoading(false));
-      // Do your work
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     fetch(
+  //       "https://raw.githubusercontent.com/adhithiravi/React-Hooks-Examples/master/testAPI.json"
+  //     )
+  //       .then((response) => response.json())
+  //       .then((json) => setData(json))
+  //       .catch((error) => console.error(error))
+  //       .finally(() => setLoading(false));
+  //     // Do your work
+  //   }, [])
+  // );
 
   const handleEditRow = (id: string) => {
     navigation.navigate(

@@ -77,6 +77,6 @@ export const Category = styled.TouchableOpacity`
 `;
 
 export const HiddenTextItem = styled.Text<HiddenTextItemProps>`
-  color: "#fff";
+  color: whitesmoke;
   padding-right: ${({ paddingLeft }) => paddingLeft}px;
 `;
